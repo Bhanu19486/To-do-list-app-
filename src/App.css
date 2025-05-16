@@ -1,42 +1,128 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Background with image and gradient overlay */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* App container */
+.app-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: white;
+  animation: fadeInUp 0.7s ease;
+}
+
+/* Input and buttons */
+.task-input {
+  padding: 10px;
+  width: 70%;
+  border: none;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.btn {
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Todo Item Styling */
+.todo-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  animation: fadeInUp 0.5s ease;
+}
+
+.todo-text {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 16px;
+  color: white;
+  position: relative;
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,0.5) 30%, #000 50%, rgba(0,0,0,0.5) 70%);
+  -webkit-mask-size: 200%;
+  animation: mask-slide 3s linear infinite;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+  animation: none;
+}
+
+/* Delete button */
+.delete-btn {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.delete-btn:hover {
+  background: rgba(255, 0, 0, 0.4);
+}
+
+/* Titles and empty state */
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.no-tasks {
+  text-align: center;
+  margin-top: 20px;
 }
 
-@keyframes logo-spin {
+/* Filter buttons */
+.filter-buttons {
+  margin: 15px 0;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeInUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes mask-slide {
+  0% {
+    -webkit-mask-position: 150%;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  100% {
+    -webkit-mask-position: -50%;
+  }
 }

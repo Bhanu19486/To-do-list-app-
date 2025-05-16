@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Todolist from "./mycomponents/Todolist";
+import './App.css'; // Include this CSS file
 
 const App = () => {
   const [task, setTask] = useState("");
@@ -9,31 +10,27 @@ const App = () => {
   });
   const [filter, setFilter] = useState("All");
 
-  const changeHandler = (e) => {
-    setTask(e.target.value);
-  };
+  const changeHandler = (e) => setTask(e.target.value);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (task.trim() === "") return;
-    const newTodo = { text: task, completed: false };
-    setTodos([...todos, newTodo]);
+    setTodos([...todos, { text: task, completed: false }]);
     setTask("");
   };
 
   const deleteHandler = (indexValue) => {
-    const newTodos = todos.filter((_, index) => index !== indexValue);
-    setTodos(newTodos);
+    setTodos(todos.filter((_, index) => index !== indexValue));
   };
 
   const toggleCompletion = (indexValue) => {
-    const updatedTodos = todos.map((todo, index) =>
-      index === indexValue ? { ...todo, completed: !todo.completed } : todo
+    setTodos(
+      todos.map((todo, index) =>
+        index === indexValue ? { ...todo, completed: !todo.completed } : todo
+      )
     );
-    setTodos(updatedTodos);
   };
 
-  // 💾 Save todos to localStorage on change
   useEffect(() => {
     localStorage.setItem("myTodos", JSON.stringify(todos));
   }, [todos]);
@@ -45,39 +42,33 @@ const App = () => {
   });
 
   return (
-    <div>
-      <center>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Todo Management Application</h5>
-            <form onSubmit={submitHandler}>
-              <input
-                size="50"
-                type="text"
-                name="task"
-                value={task}
-                onChange={changeHandler}
-              />
-              &nbsp;&nbsp;
-              <input type="submit" value="Add" name="Add" />
-            </form>
+    <div className="app-container">
+      <div className="card glass-card">
+        <h2 className="title">🌟 Todo Management Application 🌟</h2>
+        <form onSubmit={submitHandler}>
+          <input
+            className="task-input"
+            type="text"
+            value={task}
+            onChange={changeHandler}
+            placeholder="Enter a task..."
+          />
+          <button className="btn" type="submit">Add</button>
+        </form>
 
-            <div style={{ marginTop: "10px" }}>
-              <button onClick={() => setFilter("All")}>All</button>&nbsp;
-              <button onClick={() => setFilter("Completed")}>Completed</button>&nbsp;
-              <button onClick={() => setFilter("Pending")}>Pending</button>
-            </div>
-            <br />
-            <h2 className="card-title">Todo List</h2>
-            <Todolist
-              todolist={filteredTodos}
-              deleteHandler={deleteHandler}
-              toggleCompletion={toggleCompletion}
-              originalTodos={todos}
-            />
-          </div>
+        <div className="filter-buttons">
+          <button className="btn" onClick={() => setFilter("All")}>All</button>
+          <button className="btn" onClick={() => setFilter("Completed")}>Completed</button>
+          <button className="btn" onClick={() => setFilter("Pending")}>Pending</button>
         </div>
-      </center>
+
+        <Todolist
+          todolist={filteredTodos}
+          deleteHandler={deleteHandler}
+          toggleCompletion={toggleCompletion}
+          originalTodos={todos}
+        />
+      </div>
     </div>
   );
 };
