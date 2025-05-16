@@ -73,6 +73,7 @@ body, html {
   animation: mask-slide 3s linear infinite;
 }
 
+
 .completed {
   text-decoration: line-through;
   opacity: 0.6;
