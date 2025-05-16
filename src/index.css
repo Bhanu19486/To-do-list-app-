@@ -83,7 +83,7 @@ input {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #9388de;
+  background-color: #dd3b3b10;
   color: #1a0e0e;
 }
 input::placeholder {
